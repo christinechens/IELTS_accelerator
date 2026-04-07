@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christine IELTS — Accelerator Program</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #E8192C;
+    --red-light: #fde8ea;
+    --red-dark: #b5101f;
+    --yellow: #FFD600;
+    --yellow-dark: #c9a800;
+    --navy: #1A237E;
+    --navy-light: #e8eaf6;
+    --white: #ffffff;
+    --off-white: #fafafa;
+    --gray-light: #f5f5f5;
+    --gray: #888;
+    --text: #1a1a1a;
+    --text-muted: #555;
+    --radius: 16px;
+    --radius-sm: 8px;
+    --shadow: 0 2px 24px rgba(0,0,0,0.07);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #fff;
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── LANG TOGGLE ── */
+  #lang-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 1000;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    padding: 8px 18px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(26,35,126,0.3);
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.3px;
+  }
+  #lang-toggle:hover { background: var(--red); transform: scale(1.04); }
+
+  /* ── FLOATING SIDE BUTTONS ── */
+  #floating-cta {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .float-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transition: padding 0.2s, opacity 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .float-btn:hover { padding: 14px 16px; }
+  .float-btn.register {
+    background: var(--red);
+    color: #fff;
+    border-radius: 12px 0 0 0;
+  }
+  .float-btn.whatsapp {
+    background: #25D366;
+    color: #fff;
+    border-radius: 0 0 0 12px;
+  }
+  .float-btn svg { min-width: 16px; min-height: 16px; }
+
+  /* ── ASTERISK DECO ── */
+  .asterisk {
+    display: inline-block;
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--yellow);
+    font-family: 'Poppins', sans-serif;
+    opacity: 0.85;
+  }
+  .asterisk.red { color: var(--red); }
+  .asterisk.navy { color: var(--navy); }
+  .asterisk.sm { font-size: 28px; }
+  .asterisk.lg { font-size: 72px; }
+
+  /* ── HERO ── */
+  #hero {
+    background: var(--red);
+    color: #fff;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  #hero .deco-star-tl {
+    position: absolute; top: 16px; left: 16px;
+    font-size: 56px; font-weight: 900; color: rgba(255,255,255,0.18);
+    font-family: 'Poppins', sans-serif; line-height: 1;
+  }
+  #hero .deco-star-br {
+    position: absolute; bottom: 24px; right: 20px;
+    font-size: 80px; font-weight: 900; color: var(--navy);
+    font-family: 'Poppins', sans-serif; line-height: 1; opacity: 0.8;
+  }
+  #hero .badge {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 24px;
+    margin-bottom: 20px;
+    width: fit-content;
+  }
+  #hero h1 {
+    font-size: clamp(40px, 10vw, 72px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+    color: #fff;
+  }
+  #hero h1 span { color: var(--yellow); }
+  #hero .sub {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 32px;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+  .pill {
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.35);
+    color: #fff;
+    border-radius: 24px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--navy);
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.15s;
+    letter-spacing: 0.2px;
+  }
+  .btn-primary:hover { transform: scale(1.04); background: #ffe033; }
+  .btn-secondary {
+    display: inline-block;
+    background: transparent;
+    color: var(--red);
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    border: 2px solid var(--red);
+    cursor: pointer;
+    transition: transform 0.15s, background 0.15s, color 0.15s;
+  }
+  .btn-secondary:hover { background: var(--red); color: #fff; transform: scale(1.04); }
+  .btn-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #25D366;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 50px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.15s;
+  }
+  .btn-wa:hover { transform: scale(1.04); background: #1db954; }
+
+  /* ── SECTIONS ── */
+  section { padding: 64px 24px; max-width: 720px; margin: 0 auto; }
+  section.full-width { max-width: 100%; padding: 64px 0; }
+  section.full-width .inner { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: clamp(26px, 6vw, 38px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+  }
+  h2 .accent { color: var(--red); }
+  p.body { font-size: 15px; line-height: 1.75; color: var(--text-muted); }
+
+  /* ── IS THIS FOR YOU ── */
+  #fit { background: var(--off-white); }
+  #fit .inner { max-width: 720px; margin: 0 auto; padding: 64px 24px; }
+  .checklist { list-style: none; margin-top: 20px; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 14px 0;
+    border-bottom: 1px solid #ececec;
+    line-height: 1.5;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-icon {
+    width: 26px; height: 26px; min-width: 26px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+  .check-icon svg { width: 14px; height: 14px; }
+
+  /* ── ABOUT ── */
+  #about { background: #fff; }
+  .score-band {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+  }
+  .score-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 13px;
+  }
+  .score-table th {
+    background: var(--navy);
+    color: #fff;
+    padding: 10px 12px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  .score-table th:first-child { text-align: left; }
+  .score-table td {
+    padding: 10px 12px;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .score-table td:first-child { text-align: left; font-weight: 600; }
+  .score-table tr:nth-child(even) td { background: #fafafa; }
+  .score-table .overall { font-weight: 700; color: var(--red); font-size: 14px; }
+  .social-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--navy-light);
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-top: 20px;
+  }
+  .tiktok-icon { font-size: 16px; }
+
+  /* ── CURRICULUM ── */
+  #curriculum { background: var(--off-white); }
+  #curriculum .inner { max-width: 720px; margin: 0 auto; padding: 64px 24px; }
+  .phase-grid { display: grid; gap: 14px; margin-top: 24px; }
+  .phase-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 20px;
+    border: 1.5px solid #ececec;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .phase-card:hover { border-color: var(--red); transform: translateY(-2px); }
+  .phase-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  .phase-tag.build { background: var(--red-light); color: var(--red-dark); }
+  .phase-tag.mock { background: var(--navy-light); color: var(--navy); }
+  .phase-tag.feedback { background: #fff9e0; color: #8a6d00; }
+  .phase-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .phase-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .skill-pill {
+    background: var(--gray-light);
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  /* ── PRICING ── */
+  #pricing { background: #fff; }
+  .pricing-grid { display: grid; gap: 16px; margin-top: 28px; }
+  @media (min-width: 560px) { .pricing-grid { grid-template-columns: 1fr 1fr; } }
+  .price-card {
+    background: #fff;
+    border: 2px solid #ececec;
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .price-card:hover { transform: translateY(-3px); }
+  .price-card.featured {
+    border-color: var(--yellow);
+    background: #fffde7;
+    position: relative;
+    overflow: hidden;
+  }
+  .price-card.featured::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--yellow), var(--red));
+  }
+  .early-badge {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+  .price-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--text-muted); }
+  .price-amount { font-size: 28px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .price-amount span { font-size: 14px; font-weight: 500; color: var(--text-muted); }
+  .price-save { font-size: 13px; color: #1a7f37; font-weight: 600; margin-top: 6px; }
+  .price-note { font-size: 12px; color: var(--text-muted); margin-top: 16px; }
+
+  /* ── WHAT'S INCLUDED ── */
+  #included { background: var(--navy); color: #fff; }
+  #included .inner { max-width: 720px; margin: 0 auto; padding: 64px 24px; }
+  #included h2 { color: #fff; }
+  #included h2 .accent { color: var(--yellow); }
+  .included-list { list-style: none; margin-top: 20px; display: grid; gap: 12px; }
+  .included-list li {
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 14px; line-height: 1.6;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+  }
+  .dot-bullet {
+    width: 8px; height: 8px; min-width: 8px;
+    background: var(--yellow);
+    border-radius: 50%;
+    margin-top: 7px;
+  }
+
+  /* ── FAQ ── */
+  #faq { background: #fff; }
+  .faq-item {
+    border-bottom: 1px solid #ececec;
+    overflow: hidden;
+  }
+  .faq-q {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    gap: 12px;
+    transition: color 0.2s;
+  }
+  .faq-q:hover { color: var(--red); }
+  .faq-icon {
+    width: 24px; height: 24px; min-width: 24px;
+    background: var(--gray-light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    transition: background 0.2s, transform 0.2s;
+    color: var(--text);
+  }
+  .faq-item.open .faq-icon { background: var(--red); color: #fff; transform: rotate(45deg); }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.25s;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text-muted);
+    padding: 0;
+  }
+  .faq-item.open .faq-a { max-height: 200px; padding-bottom: 18px; }
+
+  /* ── CTA FOOTER ── */
+  #cta-footer {
+    background: var(--red);
+    color: #fff;
+    text-align: center;
+    padding: 72px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  #cta-footer .deco-tl {
+    position: absolute; top: 12px; left: 16px;
+    font-size: 60px; font-weight: 900; color: rgba(255,255,255,0.12);
+    font-family: 'Poppins', sans-serif; line-height: 1;
+  }
+  #cta-footer .deco-br {
+    position: absolute; bottom: 12px; right: 16px;
+    font-size: 60px; font-weight: 900; color: var(--navy);
+    font-family: 'Poppins', sans-serif; line-height: 1; opacity: 0.4;
+  }
+  #cta-footer h2 { color: #fff; font-size: clamp(26px, 6vw, 40px); margin-bottom: 12px; }
+  #cta-footer p { font-size: 15px; color: rgba(255,255,255,0.85); margin-bottom: 36px; }
+  .cta-buttons { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+  }
+  footer a { color: var(--yellow); text-decoration: none; }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (min-width: 720px) {
+    #hero { padding: 100px 48px 80px; }
+    section { padding: 80px 48px; }
+    section.full-width .inner { padding: 80px 48px; }
+    #fit .inner, #curriculum .inner, #included .inner { padding: 80px 48px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- FLOATING SIDE BUTTONS -->
+<div id="floating-cta">
+  <a id="float-register" href="#register" class="float-btn register" data-en="Register Now" data-id="Daftar">Register Now</a>
+  <a id="float-wa" href="https://wa.me/PLACEHOLDER" class="float-btn whatsapp" data-en="WhatsApp" data-id="WhatsApp">WhatsApp</a>
+</div>
+
+<!-- LANG TOGGLE -->
+<button id="lang-toggle" onclick="toggleLang()" aria-label="Switch language">
+  🇮🇩 Bahasa
+</button>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="deco-star-tl">✳</div>
+  <div class="deco-star-br">✳</div>
+  <div class="badge fade-up" data-en="🎯 Online Group Class" data-id="🎯 Kelas Kelompok Online">🎯 Online Group Class</div>
+  <h1 class="fade-up" style="transition-delay:0.08s">
+    <span data-en="IELTS" data-id="IELTS">IELTS</span><br>
+    <span data-en="Accelerator" data-id="Accelerator">Accelerator</span>
+  </h1>
+  <p class="sub fade-up" style="transition-delay:0.16s"
+    data-en="Reach your target band score in 2 months. Focused strategy. Small groups. Real results."
+    data-id="Raih target skor IELTS-mu dalam 2 bulan. Strategi terarah. Kelas kecil. Hasil nyata.">
+    Reach your target band score in 2 months. Focused strategy. Small groups. Real results.
+  </p>
+  <div class="pill-row fade-up" style="transition-delay:0.22s">
+    <span class="pill" data-en="16 sessions" data-id="16 sesi">16 sessions</span>
+    <span class="pill" data-en="8 weeks" data-id="8 minggu">8 weeks</span>
+    <span class="pill" data-en="Max 10 students" data-id="Maks 10 siswa">Max 10 students</span>
+    <span class="pill" data-en="4 May – 22 Jun 2026" data-id="4 Mei – 22 Jun 2026">4 May – 22 Jun 2026</span>
+  </div>
+  <div class="fade-up" style="transition-delay:0.28s">
+    <a href="#register" class="btn-primary"
+      data-en="Register Now →" data-id="Daftar Sekarang →">Register Now →</a>
+  </div>
+  <div class="fade-up" style="margin-top:24px; display:inline-flex; align-items:center; gap:10px; background:rgba(255,255,255,0.12); border:1.5px solid rgba(255,255,255,0.25); border-radius:50px; padding:10px 20px;">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+    <span style="font-size:16px; font-weight:700; color:#fff; letter-spacing:0.3px;">@christine.ielts</span>
+    <span style="font-size:12px; color:rgba(255,255,255,0.65); font-weight:500;">· 11K+ followers</span>
+  </div>
+</section>
+
+<!-- IS THIS FOR YOU -->
+<section id="fit" class="full-width">
+  <div class="inner">
+    <p class="section-label fade-up" data-en="WHO IT'S FOR" data-id="UNTUK SIAPA">WHO IT'S FOR</p>
+    <h2 class="fade-up">
+      <span data-en="Is this " data-id="Apakah ini ">Is this </span>
+      <span class="accent" data-en="for you?" data-id="untukmu?">for you?</span>
+    </h2>
+    <ul class="checklist">
+      <li class="fade-up">
+        <div class="check-icon">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span data-en="English level B1–B2 (intermediate to upper-intermediate)" data-id="Level bahasa Inggris B1–B2 (menengah hingga menengah atas)">English level B1–B2 (intermediate to upper-intermediate)</span>
+      </li>
+      <li class="fade-up">
+        <div class="check-icon">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span data-en="Current IELTS score of 5.5 or above (or equivalent level)" data-id="Skor IELTS saat ini 5.5 ke atas (atau level setara)">Current IELTS score of 5.5 or above (or equivalent level)</span>
+      </li>
+      <li class="fade-up">
+        <div class="check-icon">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span data-en="Target score of 6.5, 7.0, or higher" data-id="Target skor 6.5, 7.0, atau lebih tinggi">Target score of 6.5, 7.0, or higher</span>
+      </li>
+      <li class="fade-up">
+        <div class="check-icon">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span data-en="Can commit to 2 live sessions per week for 2 months" data-id="Bisa komitmen 2 sesi live per minggu selama 2 bulan">Can commit to 2 live sessions per week for 2 months</span>
+      </li>
+      <li class="fade-up">
+        <div class="check-icon">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span data-en="Mon 8:00–9:30pm · Sat 10:30am–12:00pm (WIB)" data-id="Senin 20.00–21.30 · Sabtu 10.30–12.00 (WIB)">Mon 8:00–9:30pm · Sat 10:30am–12:00pm (WIB)</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label fade-up" data-en="YOUR INSTRUCTOR" data-id="INSTRUKTURMU">YOUR INSTRUCTOR</p>
+  <h2 class="fade-up">
+    <span data-en="Meet " data-id="Kenali ">Meet </span>
+    <span class="accent">Christine</span>
+  </h2>
+  <p class="body fade-up"
+    data-en="Cambridge International curriculum graduate. MSc from the emlyon × ECNU joint program — one of the most rigorous English-taught business programs in Asia. She's taken IELTS twice and scored Band 8.5 both times."
+    data-id="Lulusan kurikulum Cambridge International. MSc dari program joint emlyon × ECNU — salah satu program bisnis berbahasa Inggris paling ketat di Asia. Ia ikut IELTS dua kali dan meraih Band 8.5 di keduanya.">
+    Cambridge International curriculum graduate. MSc from the emlyon × ECNU joint program — one of the most rigorous English-taught business programs in Asia. She's taken IELTS twice and scored Band 8.5 both times.
+  </p>
+
+  <div class="fade-up" style="margin-top:24px; overflow-x:auto;">
+    <table class="score-table">
+      <thead>
+        <tr>
+          <th data-en="Attempt" data-id="Percobaan">Attempt</th>
+          <th>Listening</th>
+          <th>Reading</th>
+          <th>Writing</th>
+          <th>Speaking</th>
+          <th data-en="Overall" data-id="Keseluruhan">Overall</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-en="1st" data-id="1">1st</td>
+          <td>8.5</td><td>8.5</td><td>7.5</td><td>8.5</td>
+          <td class="overall">8.5</td>
+        </tr>
+        <tr>
+          <td data-en="2nd" data-id="2">2nd</td>
+          <td>8.0</td><td>9.0</td><td>7.5</td><td>9.0</td>
+          <td class="overall">8.5</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="body fade-up" style="margin-top:20px;"
+    data-en="She's worked with international companies and spent the last 2 years teaching IELTS. She's been exactly where you are — and she knows how to get you to where you want to go."
+    data-id="Ia pernah bekerja dengan perusahaan internasional dan mengajar IELTS selama 2 tahun terakhir. Ia pernah ada di posisimu — dan ia tahu persis bagaimana cara membantumu sampai ke sana.">
+    She's worked with international companies and spent the last 2 years teaching IELTS. She's been exactly where you are — and she knows how to get you to where you want to go.
+  </p>
+
+  <div class="social-badge fade-up">
+    <span class="tiktok-icon">♪</span>
+    <span data-en="11,000+ followers on TikTok @christine.ielts" data-id="11.000+ pengikut di TikTok @christine.ielts">11,000+ followers on TikTok @christine.ielts</span>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section id="curriculum" class="full-width">
+  <div class="inner">
+    <p class="section-label fade-up" data-en="WHAT'S COVERED" data-id="MATERI PROGRAM">WHAT'S COVERED</p>
+    <h2 class="fade-up">
+      <span data-en="16 sessions. " data-id="16 sesi. ">16 sessions. </span>
+      <span class="accent" data-en="Every skill." data-id="Semua skill.">Every skill.</span>
+    </h2>
+    <div class="phase-grid">
+      <div class="phase-card fade-up">
+        <span class="phase-tag build" data-en="Phase 1 — Skill Building" data-id="Fase 1 — Skill Building">Phase 1 — Skill Building</span>
+        <h3 data-en="Sessions 1–12" data-id="Sesi 1–12">Sessions 1–12</h3>
+        <p data-en="Deep-dive into all four IELTS skills with exam-specific strategies for every question type." data-id="Mendalami semua empat skill IELTS dengan strategi khusus untuk setiap tipe soal.">Deep-dive into all four IELTS skills with exam-specific strategies for every question type.</p>
+        <div class="skill-pills">
+          <span class="skill-pill">Listening</span>
+          <span class="skill-pill">Reading</span>
+          <span class="skill-pill">Writing</span>
+          <span class="skill-pill">Speaking</span>
+        </div>
+      </div>
+      <div class="phase-card fade-up">
+        <span class="phase-tag mock" data-en="Phase 2 — Mock Test" data-id="Fase 2 — Mock Test">Phase 2 — Mock Test</span>
+        <h3 data-en="Sessions 13–15" data-id="Sesi 13–15">Sessions 13–15</h3>
+        <p data-en="Full 3-hour digital mock exam under real test conditions, plus exam technique and revision session." data-id="Mock test digital penuh 3 jam dalam kondisi ujian nyata, plus sesi teknik ujian dan revisi.">Full 3-hour digital mock exam under real test conditions, plus exam technique and revision session.</p>
+      </div>
+      <div class="phase-card fade-up">
+        <span class="phase-tag feedback" data-en="Phase 3 — Feedback" data-id="Fase 3 — Umpan Balik">Phase 3 — Feedback</span>
+        <h3 data-en="Session 16" data-id="Sesi 16">Session 16</h3>
+        <p data-en="Individual band score breakdown for every skill. Personalised feedback from Christine — what to fix before test day." data-id="Breakdown skor per band untuk setiap skill. Feedback personal dari Christine — apa yang perlu diperbaiki sebelum hari ujian.">Individual band score breakdown for every skill. Personalised feedback from Christine — what to fix before test day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <p class="section-label fade-up" data-en="INVESTMENT" data-id="INVESTASI">INVESTMENT</p>
+  <h2 class="fade-up">
+    <span data-en="Simple, " data-id="Harga ">Simple, </span>
+    <span class="accent" data-en="transparent pricing." data-id="yang transparan.">transparent pricing.</span>
+  </h2>
+  <p class="body fade-up"
+    data-en="Early bird pricing available until 30 April."
+    data-id="Harga early bird tersedia hingga 30 April.">
+    Early bird pricing available until 30 April.
+  </p>
+
+  <div class="pricing-grid" style="margin-top:32px;">
+    <!-- Early Bird -->
+    <div class="price-card featured fade-up">
+      <span class="early-badge" data-en="⚡ Early Bird" data-id="⚡ Early Bird">⚡ Early Bird</span>
+      <h3 data-en="Monthly" data-id="Bulanan">Monthly</h3>
+      <div class="price-amount">Rp 1.400.000 <span data-en="/month" data-id="/bulan">/month</span></div>
+      <div style="margin-top:16px; padding-top:16px; border-top:1px solid rgba(0,0,0,0.08);">
+        <h3 data-en="Upfront (2 months)" data-id="Bayar di Muka (2 bulan)">Upfront (2 months)</h3>
+        <div class="price-amount" style="font-size:22px;">Rp 2.400.000</div>
+        <div class="price-save" data-en="✓ Save Rp 400,000" data-id="✓ Hemat Rp 400.000">✓ Save Rp 400,000</div>
+      </div>
+      <p class="price-note" data-en="Register before 30 April to lock this price." data-id="Daftar sebelum 30 April untuk mengunci harga ini.">Register before 30 April to lock this price.</p>
+    </div>
+    <!-- Normal -->
+    <div class="price-card fade-up">
+      <div style="display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; padding:4px 10px; background:var(--gray-light); color:var(--gray); border-radius:6px; margin-bottom:14px;" data-en="Normal Price" data-id="Harga Normal">Normal Price</div>
+      <h3 data-en="Monthly" data-id="Bulanan">Monthly</h3>
+      <div class="price-amount">Rp 1.600.000 <span data-en="/month" data-id="/bulan">/month</span></div>
+      <div style="margin-top:16px; padding-top:16px; border-top:1px solid #ececec;">
+        <h3 data-en="Upfront (2 months)" data-id="Bayar di Muka (2 bulan)">Upfront (2 months)</h3>
+        <div class="price-amount" style="font-size:22px;">Rp 2.800.000</div>
+        <div class="price-save" data-en="✓ Save Rp 400,000" data-id="✓ Hemat Rp 400.000">✓ Save Rp 400,000</div>
+      </div>
+      <p class="price-note" data-en="Payment must be completed before class starts." data-id="Pembayaran harus dilunasi sebelum kelas dimulai.">Payment must be completed before class starts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INCLUDED -->
+<section id="included" class="full-width">
+  <div class="inner">
+    <p class="section-label fade-up" style="color:var(--yellow);" data-en="WHAT YOU GET" data-id="APA YANG KAMU DAPATKAN">WHAT YOU GET</p>
+    <h2 class="fade-up">
+      <span data-en="Everything you need " data-id="Semua yang kamu butuhkan ">Everything you need </span>
+      <span class="accent" data-en="to score." data-id="untuk meraih skor.">to score.</span>
+    </h2>
+    <ul class="included-list">
+      <li class="fade-up"><div class="dot-bullet"></div><span data-en="16 live online sessions with Christine" data-id="16 sesi live bersama Christine">16 live online sessions with Christine</span></li>
+      <li class="fade-up"><div class="dot-bullet"></div><span data-en="Curated materials and instructor notes" data-id="Materi dan catatan kurikulum dari instruktur">Curated materials and instructor notes</span></li>
+      <li class="fade-up"><div class="dot-bullet"></div><span data-en="IELTS strategies for every question type across all 4 skills" data-id="Strategi IELTS untuk setiap tipe soal di semua 4 skill">IELTS strategies for every question type across all 4 skills</span></li>
+      <li class="fade-up"><div class="dot-bullet"></div><span data-en="Full digital mock test (3 hours, timed)" data-id="Mock test digital lengkap (3 jam, terukur waktu)">Full digital mock test (3 hours, timed)</span></li>
+      <li class="fade-up"><div class="dot-bullet"></div><span data-en="Live 1-on-1 speaking assessment with Christine" data-id="Penilaian speaking 1-on-1 langsung bersama Christine">Live 1-on-1 speaking assessment with Christine</span></li>
+      <li class="fade-up"><div class="dot-bullet"></div><span data-en="Individual band score breakdown and personalised feedback" data-id="Breakdown skor per band dan feedback personal">Individual band score breakdown and personalised feedback</span></li>
+      <li class="fade-up"><div class="dot-bullet"></div><span data-en="Small group setting — max 10 students" data-id="Kelas kecil — maksimal 10 siswa">Small group setting — max 10 students</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <p class="section-label fade-up" data-en="FAQ" data-id="FAQ">FAQ</p>
+  <h2 class="fade-up">
+    <span data-en="Common " data-id="Pertanyaan ">Common </span>
+    <span class="accent" data-en="questions." data-id="umum.">questions.</span>
+  </h2>
+  <div style="margin-top:24px;">
+    <div class="faq-item fade-up">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-en="Do I need to have taken IELTS before?" data-id="Apakah saya harus pernah ikut IELTS sebelumnya?">Do I need to have taken IELTS before?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a" data-en="No — but you should be around B1–B2 level and aiming for 6.5+. There's a short diagnostic test before the program starts to confirm you're in the right place." data-id="Tidak — tapi kamu sebaiknya sudah di level B1–B2 dan menargetkan skor 6.5 ke atas. Ada tes diagnostik singkat sebelum program dimulai untuk memastikan kamu siap.">No — but you should be around B1–B2 level and aiming for 6.5+. There's a short diagnostic test before the program starts to confirm you're in the right place.</div>
+    </div>
+    <div class="faq-item fade-up">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-en="What platform are classes on?" data-id="Kelas diadakan di platform apa?">What platform are classes on?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a" data-en="All sessions are live on Zoom." data-id="Semua sesi berlangsung di Zoom.">All sessions are live on Zoom.</div>
+    </div>
+    <div class="faq-item fade-up">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-en="What if I miss a class?" data-id="Bagaimana kalau saya tidak bisa hadir?">What if I miss a class?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a" data-en="Sessions won't be rescheduled since this is a group program. You'll get the full schedule upfront so you can plan around it." data-id="Sesi tidak akan dijadwal ulang karena ini kelas kelompok. Jadwal lengkap diberikan dari awal agar kamu bisa mengatur waktumu.">Sessions won't be rescheduled since this is a group program. You'll get the full schedule upfront so you can plan around it.</div>
+    </div>
+    <div class="faq-item fade-up">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-en="When do I pay for Month 2?" data-id="Kapan pembayaran bulan ke-2 dilakukan?">When do I pay for Month 2?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a" data-en="Month 2 payment is due by end of Week 3 (around 25 May). It locks in your spot for the second half of the program." data-id="Paling lambat akhir minggu ke-3 (sekitar 25 Mei). Ini sekaligus mengonfirmasi tempatmu untuk separuh program berikutnya.">Month 2 payment is due by end of Week 3 (around 25 May). It locks in your spot for the second half of the program.</div>
+    </div>
+    <div class="faq-item fade-up">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-en="Is the mock test digital or paper?" data-id="Apakah mock test berbasis digital atau kertas?">Is the mock test digital or paper?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a" data-en="Fully digital and fully timed. You submit answers online. Speaking is done live, one-on-one with Christine." data-id="Sepenuhnya digital dan terukur waktu. Jawaban dikumpulkan online. Speaking dilakukan langsung, satu-satu bersama Christine.">Fully digital and fully timed. You submit answers online. Speaking is done live, one-on-one with Christine.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FOOTER -->
+<section id="cta-footer">
+  <div class="deco-tl">✳</div>
+  <div class="deco-br">✳</div>
+  <h2 class="fade-up" data-en="Ready to hit your target?" data-id="Siap raih target skormu?">Ready to hit your target?</h2>
+  <p class="fade-up"
+    data-en="Spots are limited. Min 5 students. Early bird closes 30 April."
+    data-id="Tempat terbatas. Min 5 siswa. Early bird ditutup 30 April.">
+    Spots are limited. Min 5 students. Early bird closes 30 April.
+  </p>
+  <div class="cta-buttons fade-up">
+    <a id="register-btn" href="#register" class="btn-primary"
+      data-en="Register Now →" data-id="Daftar Sekarang →">Register Now →</a>
+    <a id="wa-btn" href="https://wa.me/PLACEHOLDER" class="btn-wa">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      <span data-en="Ask on WhatsApp" data-id="Tanya via WhatsApp">Ask on WhatsApp</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Christine IELTS · <a href="https://instagram.com/christine.ielts">@christine.ielts</a></p>
+</footer>
+
+<script>
+  // ── LANG TOGGLE ──
+  let currentLang = 'en';
+
+  function toggleLang() {
+    currentLang = currentLang === 'en' ? 'id' : 'en';
+    const btn = document.getElementById('lang-toggle');
+    btn.textContent = currentLang === 'en' ? '🇮🇩 Bahasa' : '🇬🇧 English';
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-id');
+    });
+    document.documentElement.lang = currentLang;
+  }
+
+  // ── FAQ ──
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  // ── SCROLL ANIMATIONS ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Trigger hero elements immediately
+  document.querySelectorAll('#hero .fade-up').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), i * 90);
+  });
+</script>
+</body>
+</html>
