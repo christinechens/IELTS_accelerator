@@ -101,7 +101,7 @@
   .asterisk {
     display: inline-block;
     font-size: 48px;
-    font-weight: 900;
+    font-weight: 1000;
     line-height: 1;
     color: var(--yellow);
     font-family: 'Poppins', sans-serif;
@@ -497,13 +497,21 @@
     transform: translateY(0);
   }
 
-  /* ── RESPONSIVE ── */
+
+}
+#hero { position: relative; } /* already set, just confirm */
+ 
+ /* ── RESPONSIVE ── */
   @media (min-width: 720px) {
     #hero { padding: 100px 48px 80px; }
     section { padding: 80px 48px; }
     section.full-width .inner { padding: 80px 48px; }
     #fit .inner, #curriculum .inner, #included .inner { padding: 80px 48px; }
   }
+
+ @keyframes diskSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 </style>
 </head>
 <body>
@@ -515,14 +523,15 @@
 </div>
 
 <!-- LANG TOGGLE -->
+ 
 <button id="lang-toggle" onclick="toggleLang()" aria-label="Switch language">
   🇮🇩 Bahasa
 </button>
 
 <!-- HERO -->
 <section id="hero" class="full-width">
-  <div class="deco-star-tl">✳</div>
-  <div class="deco-star-br">✳</div>
+  <div class="deco-star-tl"><span style="font-family:'Poppins',sans-serif;font-style:normal;">✳&#xFE0E;</span></div>
+  <div class="deco-star-br"><span style="font-family:'Poppins',sans-serif;font-style:normal;">✳&#xFE0E;</span></div>
   <div class="inner">
   <div class="badge fade-up" data-en="🎯 Online Group Class" data-id="🎯 Kelas Kelompok Online">🎯 Online Group Class</div>
   <h1 class="fade-up" style="transition-delay:0.08s">
@@ -549,6 +558,40 @@
     <span style="font-size:16px; font-weight:700; color:#fff; letter-spacing:0.3px;">@christine.ielts</span>
     <span style="font-size:12px; color:rgba(255,255,255,0.65); font-weight:500;">· 11K+ followers</span>
   </div>
+   <!-- ROTATING DISK -->
+   
+<div id="rotating-disk" style="
+  position: absolute;
+ right: 80px;
+ top: 50%;
+ transform: translateY(-50%);
+ width: 320px;
+ height: 320px;
+  pointer-events: none;
+  z-index: 2;
+">
+  <svg viewBox="0 0 220 220" width="220" height="220">
+    <defs>
+      <path id="circle-path"
+        d="M 110,110 m -80,0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0"/>
+    </defs>
+    <!-- disk background -->
+   
+    <circle cx="110" cy="110" r="90" fill="#FFD600" opacity="0.95"/>
+    <circle cx="110" cy="110" r="18" fill="#1A237E"/>
+    <!-- rotating text -->
+    <g id="disk-spin" style="transform-origin:110px 110px; animation: diskSpin 12s linear infinite;">
+      <text font-family="Poppins,sans-serif" font-size="12.5" font-weight="700" fill="#1A237E" letter-spacing="2">
+        <textPath href="#circle-path">
+          <tspan id="disk-text-en">STUDY ABROAD ✦ WORK ABROAD ✦ LIVE YOUR DREAMS ✦ </tspan>
+          <tspan id="disk-text-id" style="display:none">KULIAH KE LUAR NEGERI ✦ KERJA DI LUAR NEGERI ✦ RAIH MIMPIMU ✦ </tspan>
+        </textPath>
+      </text>
+    </g>
+    <!-- center arrow -->
+    <text x="110" y="117" text-anchor="middle" font-size="18" fill="#FFD600">↗</text>
+  </svg>
+</div>
 </section>
 
 <!-- IS THIS FOR YOU -->
@@ -789,8 +832,8 @@
 
 <!-- CTA FOOTER -->
 <section id="cta-footer">
-  <div class="deco-tl">✳</div>
-  <div class="deco-br">✳</div>
+  <div class="deco-tl"><span style="font-family:'Poppins',sans-serif;font-style:normal;">✳&#xFE0E;</span></div>
+  <div class="deco-br"><span style="font-family:'Poppins',sans-serif;font-style:normal;">✳&#xFE0E;</span></div>
   <div class="inner">
   <h2 class="fade-up" data-en="Ready to hit your target?" data-id="Siap raih target skormu?">Ready to hit your target?</h2>
   <p class="fade-up"
@@ -810,7 +853,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 Christine IELTS · <a href="https://instagram.com/christine.ielts">@christine.ielts</a></p>
+  <p>© 2026 Christine IELTS · <a href="https://tiktok.com/christine.ielts">@christine.ielts</a></p>
 </footer>
 
 <script>
@@ -825,6 +868,10 @@
       el.textContent = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-id');
     });
     document.documentElement.lang = currentLang;
+     // swap disk text
+  document.getElementById('disk-text-en').style.display = currentLang === 'en' ? 'inline' : 'none';
+  document.getElementById('disk-text-id').style.display = currentLang === 'id' ? 'inline' : 'none';
+  document.documentElement.lang = currentLang;
   }
 
   // ── FAQ ──
