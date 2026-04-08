@@ -567,16 +567,14 @@
 <div id="rotating-disk" style="position:absolute; right:80px; top:50%; transform:translateY(-50%); width:300px; height:300px; pointer-events:none; z-index:2;">
   <svg viewBox="0 0 300 300" width="300" height="300">
     <defs>
-      <path id="circle-path" d="M 150,150 m -118,0 a 118,118 0 1,1 236,0 a 118,118 0 1,1 -236,0"/>
+      <path id="circle-path" d="M 150,150 m -90,0 a 90,90 0 1,1 180,0 a 90,90 0 1,1 -236,0"/>
     </defs>
 
     <!-- outer ring background (red, same as hero) -->
     <circle cx="150" cy="150" r="130" fill="#E8192C"/>
-
  
     <!-- yellow disk -->
     <circle cx="150" cy="150" r="40" fill="#FFD600"/>
-
 
     <!-- rotating text ring -->
     <g id="disk-spinner" style="transform-origin:150px 150px; animation: diskSpin 14s linear infinite;">
