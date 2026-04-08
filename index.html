@@ -233,7 +233,7 @@
 
   /* ── SECTIONS ── */
   section { padding: 64px 24px; max-width: 720px; margin: 0 auto; }
-  section.full-width { max-width: 100%; padding: 80px 0; }
+  section.full-width { max-width: 100%; padding: 160px 0; }
   section.full-width .inner { max-width: 720px; margin: 0 auto; padding: 0 24px; }
 
   .section-label {
@@ -564,20 +564,30 @@
   </section> 
    <!-- ROTATING DISK -->
    
-<div id="rotating-disk" style="position:absolute; right:80px; top:50%; transform:translateY(-50%); width:300px; height:300px; pointer-events:none; z-index:2; flex-shrink:0;">
+<div id="rotating-disk" style="position:absolute; right:80px; top:50%; transform:translateY(-50%); width:300px; height:300px; pointer-events:none; z-index:2;">
   <svg viewBox="0 0 300 300" width="300" height="300">
     <defs>
-      <path id="circle-path" d="M 150,150 m -108,0 a 108,108 0 1,1 216,0 a 108,108 0 1,1 -216,0"/>
+      <path id="circle-path" d="M 150,150 m -118,0 a 118,118 0 1,1 236,0 a 118,118 0 1,1 -236,0"/>
     </defs>
+
+    <!-- outer ring background (red, same as hero) -->
+    <circle cx="150" cy="150" r="130" fill="#E8192C"/>
+
+    <!-- white ring border -->
+    <circle cx="150" cy="150" r="130" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+
     <!-- yellow disk -->
-    <circle cx="150" cy="150" r="118" fill="#FFD600"/>
+    <circle cx="150" cy="150" r="88" fill="#FFD600"/>
+
     <!-- center navy circle -->
-    <circle cx="150" cy="150" r="48" fill="#1A237E"/>
+    <circle cx="150" cy="150" r="42" fill="#1A237E"/>
+
     <!-- star in center -->
-    <text x="150" y="162" text-anchor="middle" font-size="40" fill="#FFD600">★</text>
+    <text x="150" y="162" text-anchor="middle" font-size="38" fill="#FFD600">★</text>
+
     <!-- rotating text ring -->
-    <g style="transform-origin:150px 150px; animation: diskSpin 14s linear infinite;">
-      <text font-family="Poppins,sans-serif" font-size="13" font-weight="700" fill="#1A237E" letter-spacing="3">
+    <g id="disk-spinner" style="transform-origin:150px 150px; animation: diskSpin 14s linear infinite;">
+      <text font-family="Poppins,sans-serif" font-size="13.5" font-weight="700" fill="#ffffff" letter-spacing="4">
         <textPath href="#circle-path">
           <tspan id="disk-text-en">STUDY ABROAD • LIVE YOUR DREAMS • WORK ABROAD • </tspan>
           <tspan id="disk-text-id" style="display:none">KULIAH DI LUAR NEGERI • RAIH MIMPIMU • KERJA DI LUAR NEGERI • </tspan>
@@ -586,7 +596,6 @@
     </g>
   </svg>
 </div>
-
 <!-- IS THIS FOR YOU -->
 <section id="fit" class="full-width">
   <div class="inner">
