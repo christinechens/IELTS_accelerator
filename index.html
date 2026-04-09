@@ -233,7 +233,7 @@
 
   /* ── SECTIONS ── */
   section { padding: 64px 24px; max-width: 720px; margin: 0 auto; }
-  section.full-width { max-width: 100%; padding: 40px 100px; }
+  section.full-width { max-width: 100%; padding: 40px 24px; }
   section.full-width .inner { max-width: 720px; margin: 0 auto; padding: 0 24px; }
 
   .section-label {
@@ -506,9 +506,24 @@
   @media (min-width: 720px) {
     #hero { padding: 100px 48px 80px; }
     section { padding: 80px 48px; }
+    section.full-width { padding: 40px 100px; }
     section.full-width .inner { padding: 80px 48px; }
     #fit .inner, #curriculum .inner, #included .inner { padding: 80px 48px; }
   }
+ @media (max-width: 719px) {
+  #hero {
+    flex-direction: column;
+    padding: 60px 24px;
+    align-items: flex-start;
+  }
+  #rotating-disk {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    margin: 0 auto;
+  }
+}
 
  @keyframes diskSpin {
   from { transform: rotate(0deg); }
